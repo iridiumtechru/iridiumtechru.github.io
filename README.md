@@ -21,3 +21,13 @@ source ~/blogenv/bin/activate
 в данном случае source важно. проверить что venv включился можно так:
 
 pip -V будет указывать на ~/blogenv
+
+Поставить пакеты.
+
+sudo pip3 install pelican markdown
+
+mkdir src
+
+cd src
+
+pelican-quickstart
