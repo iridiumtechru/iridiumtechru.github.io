@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Is That working?
 category: Information
 ---
