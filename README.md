@@ -31,3 +31,30 @@ mkdir src
 cd src
 
 pelican-quickstart
+'''
+
+Windows:
+python 3.4
+
+Установить:
+стоит из коробки
+
+Создать env:
+python -m venv blogenv
+
+Активировать:
+blogenv\Scripts\activate.bat
+
+Появится префикс (blogenv) в терминале 
+
+Потом по https://eax.me/pelican/
+
+pip install pelican markdown
+mkdir src
+cd src
+pelican-quickstart
+pelican --relative-urls --ignore-cache -o .. content
+
+попытался запустить develop_server.sh start 8000
+но там был сгенерирован python3
+
