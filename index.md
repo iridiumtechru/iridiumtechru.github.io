@@ -2,5 +2,4 @@
 title: Ctrl+?
 layout: default
 ---
- 
-Bad
+{{content}}

@@ -1,1 +1,22 @@
-theme: jekyll-theme-hacker
+title: Ctrl+?
+
+author:
+  name: "Oleg K. Karpov"
+  url: "https://iridiumtechru.github.io" 
+baseurl: /
+
+paginate: 3
+paginate_path: /page/:num/
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-sitemap
