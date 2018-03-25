@@ -2,7 +2,8 @@ title: Ctrl+?
 
 author:
   name: "Oleg K. Karpov"
-  url: "https://iridiumtechru.github.io" 
+  url: "https://iridiumtechru.github.io"
+  sitename: "iridiumtechru.github.io"
 baseurl: /
 
 paginate: 3
