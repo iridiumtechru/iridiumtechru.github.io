@@ -1,15 +1,15 @@
 ---
 layout: post
 published: true
-title: Git Credentials для Visual Studio Code
+title: Как сгенерировать сертификаты (openssl/openssh/putty)
 ---
 
-Среда с интегрированной системой контроля версий.
+Систематизируем знания по созданию и конвертации ключей при использовании различных инструментов.
 
-## Зачем?
-*В последнее время для всех сторонних проектов использую VSCode в купе с git. Мне очень нравится возможность иметь все инструменты под рукой и вести контроль версий не отрываясь от разработки. Единственной проблемой является то что Git всегда переспрашивает логин/пароль при работе с внешним репозиторием. Сделаем среду максимально удобной.*
+------
+*Требуется сгенерировать ключ для доступа по ssh. Всегда нахожу разные способы их сгенерировать и постоянно забываю чем они отличаются.*
 
-Первым делом придется разобраться с генерацией ключа. Для этого придется понять чем отличаются `openssl openssh и puttygen`.
+Шпаргалка по `openssl openssh и putty`.
 
 ## Инструкция для Linux
 
@@ -25,7 +25,7 @@ title: Git Credentials для Visual Studio Code
         <code>
             Generating a 2048 bit RSA private key...............+++
             ..........................................+++
-            writing new private key to 'okey.pem'
+            writing new private key to 'openssl-key.pem'
             Enter PEM pass phrase:
             Verifying - Enter PEM pass phrase:
             -----
@@ -44,14 +44,14 @@ title: Git Credentials для Visual Studio Code
     </pre>
 </details>
 
-~~Нужен для генерации сертификатов сайтов~~
+~~Нужен для генерации сертификатов сайтов.~~
 
 ### ssh-keygen
 
 <details>
     <summary>
         <code class="highlighter-rouge">
-            ssh-keygen -f ssh-key проверить!
+            ssh-keygen -f ssh-key
         </code>
     </summary>
     <pre class="highlight">
@@ -121,69 +121,113 @@ title: Git Credentials для Visual Studio Code
 -rw-rw-r-- techru  396 putty-key.pub
 ```
 
-!Каждый ключ состоит из публичной и приватной части.
+Каждый ключ состоит из публичной и приватной части.
 
-## Экстракция и генерация
-
-## Меняем git remote
-
-Посмотреть текущий внешний репозиторий:
-
-`git remote -v`
-
-Сменить адрес репозитория на ssh:
-
-`git remote set-url origin git@github.com:iridiumtechru/iridiumtechru.github.io.git`
-
-## Проверям пуш
-
+### Pub Keys
 <details>
     <summary>
         <code class="highlighter-rouge">
-            git push origin
+            openssl
         </code>
     </summary>
     <pre class="highlight">
         <code>
-            The authenticity of host 'github.com (192.30.253.113)' can't be established.
-            RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
-            Are you sure you want to continue connecting (yes/no)? yes
-            Warning: Permanently added 'github.com,192.30.253.113' (RSA) to the list of known hosts.
-            Everything up-to-date
+
         </code>
     </pre>
 </details>
 
+<details>
+    <summary>
+        <code class="highlighter-rouge">
+            openssh
+        </code>
+    </summary>
+    <pre class="highlight">
+        <code>
 
-**Ctrl+Shift+P** -> **Push To**
+        </code>
+    </pre>
+</details>
 
-![Push Test]({{"/assets/push.jpg" | absolute_url}})
+<details>
+    <summary>
+        <code class="highlighter-rouge">
+            puttygen
+        </code>
+    </summary>
+    <pre class="highlight">
+        <code>
 
-Будет запрошен пароль от сертификата.
+        </code>
+    </pre>
+</details>
 
-## Инструкция для Windows
+### Private Keys
+<details>
+    <summary>
+        <code class="highlighter-rouge">
+            openssl
+        </code>
+    </summary>
+    <pre class="highlight">
+        <code>
 
-Тут немного сложнее т.к. инструменты для генерации ключей не распрастранены и в большинтсве совем представляют порты консольных приложений с Unix платформ. На помощь приходит Putty.
+        </code>
+    </pre>
+</details>
 
-попытка запулитья с win заканчивается ошибкой
+<details>
+    <summary>
+        <code class="highlighter-rouge">
+            openssh
+        </code>
+    </summary>
+    <pre class="highlight">
+        <code>
 
-<!-- чем отличаются ssh-agentы -->
+        </code>
+    </pre>
+</details>
 
-`git push origin`
+<details>
+    <summary>
+        <code class="highlighter-rouge">
+            puttygen
+        </code>
+    </summary>
+    <pre class="highlight">
+        <code>
 
-The authenticity of host 'github.com (192.30.253.112)' can't be established.
-RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGO1spRomTxdCARLviKw6E5SY8.
-Are you sure you want to continue connecting (yes/no)? yes
-Warning: Permanently added 'github.com,192.30.253.112' (RSA) to the list of known hosts.
-Enter passphrase for key '/c/Users/TECHRUMAIN/.ssh/id_rsa':
+        </code>
+    </pre>
+</details>
 
-Удалось **запустить из терминала Git Bash**. Так Push работает, запрашивая пароль от сертификата. Пришлось отключить в настройках:
+## Экстракция и конвертация
 
-`"git.autofetch": false,`
+Приватный в публичный.
 
-и сравнить отличие переменных `prinenv`
+* openssl
 
-Попробуем зайти с другой стороны. Используем Credential manager встроенный в Windows.
+* openssh
+
+* puttygen
+
+Конвертировать уже имеющийся ключ.
+
+1. openssl -> openssh
+
+2. openssl -> putty
+
+3. openssh -> openssl
+
+4. openssh -> putty
+
+5. putty -> openssl
+
+6. putty -> openssh
+
+## Выводы
 
 ## Ссылки
 1. [Linux puttygen](https://www.ssh.com/ssh/putty/linux/puttygen)
