@@ -42,11 +42,11 @@ title: Шпаргалка по openssl/openssh/putty
     </pre>
 </details>
 
-x509 - [стандарт](https://ru.wikipedia.org/wiki/X.509).
+x509 - [стандарт](https://ru.wikipedia.org/wiki/X.509){:target="_blank"}.
 
-rsa - [алгоритм](https://ru.wikipedia.org/wiki/RSA).
+rsa - [алгоритм](https://ru.wikipedia.org/wiki/RSA){:target="_blank"}.
 
-2048 - [длина ключа](https://ru.wikipedia.org/wiki/Ключ_(криптография)).
+2048 - [длина ключа](https://ru.wikipedia.org/wiki/Ключ_(криптография)){:target="_blank"}.
 
 365 - время действия в днях.
 
@@ -347,11 +347,11 @@ SHA256 - [цифровая подпись](https://ru.wikipedia.org/wiki/SHA-2)
 
 ## Инструкция для Windows
 
-Самым простым и распрастраненным вариантом является [Putty](https://www.putty.org/), а точнее puttygen. 
+Самым простым и распрастраненным вариантом является [Putty](https://www.putty.org/){:target="_blank"}, а точнее puttygen. 
 
-Также можно использовать порты Unix приложений, например в [MSYS2](https://www.msys2.org/).
+Также можно использовать порты Unix приложений, например в [MSYS2](https://www.msys2.org/){:target="_blank"}.
 
-Запускаем puttygen.exe, жмем **Generate**. Водим мышкой для генерации случайно последовательности.
+Запускаем puttygen.exe, жмем **Generate**. Водим мышкой для генерации случайной последовательности.
 
 ![puttygen]({{"/assets/puttygen.png" | absolute_url}})
 
@@ -362,11 +362,11 @@ SHA256 - [цифровая подпись](https://ru.wikipedia.org/wiki/SHA-2)
 Из сохраненного .ppk файла всегда можно извлечь всю информацию, загрузив его в puttygen.
 
 ## Выводы
-1. openssl совсем не нужен, как и все примеры с его использованием для генерации ssh ключей.
-2. ssh-keygen сохраняет публичный ключ в формате **authorized_keys** файла, puttygen сохраняет по [RFC 4716](https://tools.ietf.org/html/rfc4716#section-3).
-3. Linux - ssh-keygen, Windows - puttygen.exe.
+1. openssl совсем не нужен, как и все примеры с его использованием для генерации ssh ключей. Я всегда натыкался на него в примерах и это меня сбивало.
+2. ssh-keygen сохраняет публичный ключ в формате **authorized_keys** файла, puttygen сохраняет по [RFC 4716](https://tools.ietf.org/html/rfc4716#section-3){:target="_blank"}.
+3. Предпочтения по платформам: Linux - ssh-keygen, Windows - puttygen.exe.
 
 ## Ссылки
-1. [Linux puttygen](https://www.ssh.com/ssh/putty/linux/puttygen)
-2. [Git ssh keys](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#platform-linux)
-3. [win ssh invalid format](https://stackoverflow.com/questions/42863913/key-load-public-invalid-format)
+1. [Linux puttygen](https://www.ssh.com/ssh/putty/linux/puttygen){:target="_blank"}
+2. [Git ssh keys](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/#platform-linux){:target="_blank"}
+3. [Format differences ssh (stackoverflow)](https://stackoverflow.com/questions/42863913/key-load-public-invalid-format){:target="_blank"}
