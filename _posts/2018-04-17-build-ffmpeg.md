@@ -198,9 +198,3 @@ fi
 ## Ссылки
 1. [FFmpeg](https://ffmpeg.org/)
 2. [VS build FFmpeg](https://blogs.gnome.org/rbultje/2012/09/27/microsoft-visual-studio-support-in-ffmpeg-and-libav/)
- 
-<!--
-<div class="comment">
-<div class="textarea" tabindex="0" role="textbox" aria-multiline="true" contenteditable="PLAINTEXT-ONLY" data-role="editable" aria-label="Start the discussion…" style="overflow: auto; word-wrap: break-word; max-height: 350px;"></div>
-</div>
--->
