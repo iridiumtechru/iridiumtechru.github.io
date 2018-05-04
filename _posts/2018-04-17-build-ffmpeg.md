@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: Сборка ffmpeg с libx264 (windows, ios, osx, android)
 ---
 
@@ -43,6 +43,9 @@ make install
 ```
 
 ### iOS
+
+1. Переходим в папку с исходниками libx264.
+2. Создаем скрипт для сборки. Я поместил его в Projects/iOS
 
 {% spoilerblock .sh %}
 #!/bin/sh
