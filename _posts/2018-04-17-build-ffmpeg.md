@@ -1,6 +1,6 @@
 ---
 layout: post
-published: true
+published: false
 title: Сборка ffmpeg с libx264 (windows, ios, osx, android)
 ---
 
