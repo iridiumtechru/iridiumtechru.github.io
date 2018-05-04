@@ -280,3 +280,8 @@ a:active, a:focus {
   color: #b5e853;
   border-radius: 2px;
 }
+
+.journalist-broadcast.journalist-broadcast-widget > div
+{
+  background-color: red!important;
+}
