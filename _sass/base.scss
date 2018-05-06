@@ -311,7 +311,7 @@ a:active, a:focus {
 
 .scroller 
 {
-  height: 400px;
+  max-height: 400px;
   //background-color: #DCDCDC;
   overflow-y: auto; // showing scrollbars
   //style="overflow:auto; height:400px;"
