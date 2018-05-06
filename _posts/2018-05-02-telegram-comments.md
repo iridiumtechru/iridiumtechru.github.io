@@ -1,7 +1,7 @@
 ---
 layout: post
 published: true
-title: Комментарии в Jekyll блоге с использованием Telegram
+title: Комментарии в блоге с использованием Telegram
 ---
 
 Ленивый способ встроить комментарии в блог.
