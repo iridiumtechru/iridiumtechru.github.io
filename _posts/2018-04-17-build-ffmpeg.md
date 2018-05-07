@@ -4,6 +4,9 @@ published: false
 title: Сборка ffmpeg с libx264 (windows, ios, osx, android)
 ---
 
+<!--<style>
+strong {color:#f4bf75}
+</style>-->
 Как собрать библиотеку с поддержкой кодека h264 на большинстве платформ.
 
 ## Зачем?
@@ -44,10 +47,17 @@ make install
 
 ### iOS
 
-1. Переходим в папку с исходниками libx264.
-2. Создаем скрипт для сборки. Я поместил его в Projects/iOS
+1. Переходим в папку с исходниками libx264. Это будет корень **LIBX264_ROOT**.
+2. Сборка будет происходить в папке **[LIBX264_ROOT]/Projects/iOS/**. Создаем папку `mkdir -p Projects/iOS`.
+3. Переходим в папку проекта.
+4. Создаем [build_x264.sh](#264ios). Копируем в него скрипт.
+5. Запускаем сборку библиотек: `sh ./build_x264.sh`.
+6. Файлы будут лежать в **[LIBX264_ROOT]/Projects/iOS/Temp**.
+7. Запускаем сборку [FAT-либок](https://en.wikipedia.org/wiki/Universal_binary){:target="_blank"}. `sh ./build_x264.sh lipo`
+8. FAT-либка будут лежать в **[LIBX264_ROOT]/lib/ios**.
 
-{% spoilerblock .sh %}
+<a name="264ios"></a>
+{% spoilerblock build_x264.sh %}
 #!/bin/sh
 
 CONFIGURE_FLAGS="--enable-static --enable-pic --disable-cli"
@@ -58,25 +68,20 @@ ARCHS="arm64 armv7 armv7s" #x86_64 i386
 CWD=$(pwd)
 TEMP_DIR=$CWD/Temp
 mkdir -p $TEMP_DIR
+# Go to ROOT
 cd ../..
 WORK_DIR=$(pwd)
+# output dir
 FAT=$WORK_DIR/lib/ios
 mkdir -p $FAT
-
-# directories
-#SOURCE="x264"
-#FAT="x264-iOS"
-
-#SCRATCH="scratch-x264"
-# must be an absolute path
-#THIN="$PWD/Project/iOS/thin-x264"
 
 COMPILE="y"
 LIPO="y"
 
-echo "temp dir=$TEMP_DIR"
-echo "work dir=$WORK_DIR"
+#echo "temp dir=$TEMP_DIR"
+#echo "work dir=$WORK_DIR"
 
+# make this files executable
 chmod +x $WORK_DIR/version.sh
 chmod +x $WORK_DIR/tools/gas-preprocessor.pl
 chmod +x $WORK_DIR/config.sub
@@ -180,12 +185,170 @@ then
     #cp -rf $THIN/$1/include $WORK_DIR
 fi
 {% endspoilerblock %}
-
-1. Сборка
+<br>
 
 ### OSX
+1. Алгоритм сборки для OSX совпадает с iOS. Немного отличается скрипт и рабочая папка **[LIBX264_ROOT]/Projects/OSX/**
+2. На моей машине для i386 сразу создавалась FAT-либка. Я просто копировал ее в **[LIBX264_ROOT]/lib/osx/**
+
+<a name="264osx"></a>
+{% spoilerblock build_x264.sh %}
+#!/bin/sh
+
+CONFIGURE_FLAGS="--enable-static --enable-pic --disable-cli --disable-asm"
+
+ARCHS="x86_64 i386" #
+
+# directiries
+CWD=$(pwd)
+TEMP_DIR=$CWD/Temp
+mkdir -p $TEMP_DIR
+cd ../..
+WORK_DIR=$(pwd)
+FAT=$WORK_DIR/lib/osx
+mkdir -p $FAT
+
+COMPILE="y"
+LIPO="y"
+
+echo "temp dir=$TEMP_DIR"
+echo "work dir=$WORK_DIR"
+
+chmod +x $WORK_DIR/version.sh
+chmod +x $WORK_DIR/tools/gas-preprocessor.pl
+chmod +x $WORK_DIR/config.sub
+chmod +x $WORK_DIR/config.guess
+
+if [ "$*" ]
+then
+    if [ "$*" = "lipo" ]
+    then
+        # skip compile
+        COMPILE=
+    else
+        ARCHS="$*"
+        if [ $# -eq 1 ]
+        then
+            # skip lipo
+            LIPO=
+        fi
+    fi
+fi
+
+if [ "$COMPILE" ]
+then
+    #CWD=$PWD
+    for ARCH in $ARCHS
+    do
+        echo "building $ARCH..."
+        mkdir -p "$TEMP_DIR/$ARCH"
+        
+        CFLAGS="-arch $ARCH"
+        ASFLAGS=
+        
+        PLATFORM="macosx"
+        XCRUN_SDK=`echo $PLATFORM | tr '[:upper:]' '[:lower:]'`
+        CC="xcrun -sdk $XCRUN_SDK clang"
+        
+        CXXFLAGS="$CFLAGS"
+        LDFLAGS="$CFLAGS"
+
+        CC=$CC ./configure \
+            $CONFIGURE_FLAGS \
+            $HOST \
+            --extra-cflags="$CFLAGS" \
+            --extra-asflags="$ASFLAGS" \
+            --extra-ldflags="$LDFLAGS" \
+            --prefix="$TEMP_DIR/$ARCH" || exit 1
+
+        make clean
+        make -j3 install || exit 1
+
+    done
+fi
+
+# TODO i386 makes fat lib. need only cp Temp/i386/lib/*.a $WORK_DIR/lib/osx
+if [ "$LIPO" ]
+then
+    echo "building fat binaries..."
+    cp Temp/i386/lib/*.a $WORK_DIR/lib/osx
+
+    #set - $ARCHS
+    #THIN=$TEMP_DIR
+    #echo "$THIN"
+
+    #cd $THIN/$1/lib
+    #for LIB in *.a
+    #do
+    #    cd $WORK_DIR
+    #    echo lipo -create `find $THIN -name $LIB` -output $FAT/$LIB 1>&2
+    #    lipo -create `find $THIN -name $LIB` -output $FAT/$LIB
+    #done
+
+    #cd $WORK_DIR
+    #cp -rf $THIN/$1/include $WORK_DIR
+fi
+{% endspoilerblock %}
+<br>
 
 ### Android
+1. 
+
+<a name="264android"></a>
+{% spoilerblock build_x264.sh %}
+#!/bin/sh
+
+# start cygwin
+# cd /cygdrive/{disk letter}/{path to x264}/Projects/Android
+# ./{this file}
+
+NDK=C:/Users/UserName/AppData/Local/Android/sdk/ndk-bundle
+SYSROOT=$NDK/platforms/android-16/arch-arm/
+TOOLCHAIN=$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64
+
+ARCH=armeabi-v7a
+WORK_DIR=$(pwd)
+TEMP_DIR=$WORK_DIR/temp
+ROOT_DIR=$WORK_DIR/../..
+PREFIX=$TEMP_DIR/$ARCH
+
+delete()
+{
+   echo "================== Deleting libs"
+   rm ./lib/android/*.a
+}
+
+copy_libs()
+{
+   echo "================== Copy libs"
+   OUT_DIR=$ROOT_DIR/lib/android/$ARCH
+   mkdir -p $OUT_DIR
+   cp $PREFIX/lib/*.a $OUT_DIR
+}
+
+build_armv7()
+{
+   ./configure \
+    --prefix=$PREFIX \
+    --enable-static \
+    --enable-pic \
+    --host=arm-linux \
+    --cross-prefix=$TOOLCHAIN/bin/arm-linux-androideabi- \
+    --sysroot=$SYSROOT
+	
+    make clean
+	make
+	make install
+}
+
+cd ../..
+
+echo $(pwd)
+
+build_armv7
+copy_libs 
+{% endspoilerblock %}
+<br>
 
 <a name="ffmpeg"></a>
 ## Cборка FFmpeg
@@ -199,5 +362,6 @@ fi
 ### Android
 
 ## Ссылки
-1. [FFmpeg](https://ffmpeg.org/)
-2. [VS build FFmpeg](https://blogs.gnome.org/rbultje/2012/09/27/microsoft-visual-studio-support-in-ffmpeg-and-libav/)
+1. [FFmpeg](https://ffmpeg.org/){:target="_blank"}
+2. [VS build FFmpeg](https://blogs.gnome.org/rbultje/2012/09/27/microsoft-visual-studio-support-in-ffmpeg-and-libav/){:target="_blank"}
+3. [build ios script](https://github.com/kewlbear/x264-ios){:target="_blank"}
