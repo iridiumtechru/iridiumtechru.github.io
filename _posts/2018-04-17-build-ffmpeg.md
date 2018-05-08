@@ -27,7 +27,7 @@ strong {color:#f4bf75}
 2. `git clone http://git.videolan.org/git/x264.git`
 
 ## Cборка x264
-Первым делом собираем libx264. Если не требуется переходим сразу к сборке [FFmpeg](#ffmpeg)
+Первым делом собираем libx264. Если не требуется переходим сразу к сборке [FFmpeg](#ffmpegbuild)
 
 ### Windows
 1. Ставим VS Studio [2015](https://www.visualstudio.com/ru/vs/older-downloads/) или выше. Минимальная версия [VS2013 u2](https://stackoverflow.com/questions/23099999/windows-how-to-build-x264-lib-instead-of-dll){:target="_blank"}.
@@ -292,15 +292,19 @@ fi
 <br>
 
 ### Android
-1. 
+1. Ставим [Cygwin](https://www.cygwin.com/){:target="_blank"} (~~Mingw,MSYS2~~).
+2. Ставим [Android NDK](https://developer.android.com/ndk/guides/){:target="_blank"}. Раньше качался отдельно, сейчас только через SDK Manager в Android Studio.
+3. Открываем консоль Cygwin.
+4. Переходим в папку с исходниками `cd /cygdrive/{disk letter}/{path to x264}/`.
+5. Создаем папку `mkdir -p Projects/Android`.
+6. `cd Projects/Android`
+7. Создаем [build_x264.sh](#264android). Копируем в него скрипт.
+8. Правим переменные *NDK, SYSROOT, TOOLCHAIN, ARCH*.
+9. Запускаем сборку библиотек: `sh ./build_x264.sh`.
 
 <a name="264android"></a>
 {% spoilerblock build_x264.sh %}
 #!/bin/sh
-
-# start cygwin
-# cd /cygdrive/{disk letter}/{path to x264}/Projects/Android
-# ./{this file}
 
 NDK=C:/Users/UserName/AppData/Local/Android/sdk/ndk-bundle
 SYSROOT=$NDK/platforms/android-16/arch-arm/
@@ -350,7 +354,7 @@ copy_libs
 {% endspoilerblock %}
 <br>
 
-<a name="ffmpeg"></a>
+<a name="ffmpegbuild"></a>
 ## Cборка FFmpeg
 
 ### Windows
