@@ -57,7 +57,13 @@ make install
 8. FAT-либка будут лежать в **[LIBX264_ROOT]/lib/ios**.
 
 <a name="264ios"></a>
-{% spoilerblock build_x264.sh %}
+<details>
+<summary>
+<code><strong style="color:#a83232">build_x264.sh</strong></code>
+</summary>
+<div class="language-bash highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
 #!/bin/sh
 
 CONFIGURE_FLAGS="--enable-static --enable-pic --disable-cli"
@@ -184,7 +190,8 @@ then
     cd $WORK_DIR
     #cp -rf $THIN/$1/include $WORK_DIR
 fi
-{% endspoilerblock %}
+</code></pre></div></div>
+</details>
 <br>
 
 ### OSX
@@ -192,7 +199,13 @@ fi
 2. На моей машине для i386 сразу создавалась FAT-либка. Я просто копировал ее в **[LIBX264_ROOT]/lib/osx/**
 
 <a name="264osx"></a>
-{% spoilerblock build_x264.sh %}
+<details>
+<summary>
+<code><strong style="color:#a83232">build_x264.sh</strong></code>
+</summary>
+<div class="language-bash highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
 #!/bin/sh
 
 CONFIGURE_FLAGS="--enable-static --enable-pic --disable-cli --disable-asm"
@@ -288,7 +301,8 @@ then
     #cd $WORK_DIR
     #cp -rf $THIN/$1/include $WORK_DIR
 fi
-{% endspoilerblock %}
+</code></pre></div></div>
+</details>
 <br>
 
 ### Android
@@ -303,7 +317,13 @@ fi
 9. Запускаем сборку библиотек: `sh ./build_x264.sh`.
 
 <a name="264android"></a>
-{% spoilerblock build_x264.sh %}
+<details>
+<summary>
+<code><strong style="color:#a83232">build_x264.sh</strong></code>
+</summary>
+<div class="language-bash highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
 #!/bin/sh
 
 NDK=C:/Users/UserName/AppData/Local/Android/sdk/ndk-bundle
@@ -351,7 +371,8 @@ echo $(pwd)
 
 build_armv7
 copy_libs 
-{% endspoilerblock %}
+</code></pre></div></div>
+</details>
 <br>
 
 <a name="ffmpegbuild"></a>
@@ -398,7 +419,13 @@ make install
 9. FAT-либка будут лежать в **[build_ffmpeg]/lib/ios**.
 
 <a name="ffmpegios"></a>
-{% spoilerblock build_ffmpeg.sh %}
+<details>
+<summary>
+<code><strong style="color:#a83232">build_ffmpeg.sh</strong></code>
+</summary>
+<div class="language-bash highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
 #!/bin/sh
 
 # ffmpeg_build.sh
@@ -569,8 +596,8 @@ then
     cd $WORK_DIR
     cp -rf $THIN/$1/include $WORK_DIR
 fi
-
-{% endspoilerblock %}
+</code></pre></div></div>
+</details>
 <br>
 
 ### OSX
@@ -585,7 +612,13 @@ fi
 9. FAT-либка будут лежать в **[build_ffmpeg]/lib/osx**.
 
 <a name="ffmpegosx"></a>
-{% spoilerblock build_ffmpeg.sh %}
+<details>
+<summary>
+<code><strong style="color:#a83232">build_ffmpeg.sh</strong></code>
+</summary>
+<div class="language-bash highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
 #!/bin/sh
 
 FFMPEG_SOURCE=ffmpeg-2.8
@@ -732,7 +765,8 @@ then
     cd $WORK_DIR
     cp -rf $THIN/$1/include $WORK_DIR
 fi
-{% endspoilerblock %}
+</code></pre></div></div>
+</details>
 <br>
 
 ### Android
@@ -747,7 +781,13 @@ fi
 9. Запускаем сборку библиотек: `sh ./build_ffmpeg.sh`.
 
 <a name="ffmpegandroid"></a>
-{% spoilerblock build_ffmpeg.sh %}
+<details>
+<summary>
+<code><strong style="color:#a83232">build_ffmpeg.sh</strong></code>
+</summary>
+<div class="language-bash highlighter-rouge">
+<div class="highlight">
+<pre class="highlight"><code>
 #!/bin/sh
 
 FFMPEG_SOURCE=ffmpeg-2.8
@@ -821,7 +861,8 @@ build_armv7()
 cd ../..
 
 build_armv7
-{% endspoilerblock %}
+</code></pre></div></div>
+</details>
 <br>
 ## Ссылки
 1. [FFmpeg](https://ffmpeg.org/){:target="_blank"}
