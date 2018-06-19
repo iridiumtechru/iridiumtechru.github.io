@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: Сборка ffmpeg с libx264 (windows, ios, osx, android)
 ---
 
@@ -827,3 +827,10 @@ build_armv7
 1. [FFmpeg](https://ffmpeg.org/){:target="_blank"}
 2. [VS build FFmpeg](https://blogs.gnome.org/rbultje/2012/09/27/microsoft-visual-studio-support-in-ffmpeg-and-libav/){:target="_blank"}
 3. [build ios script](https://github.com/kewlbear/x264-ios){:target="_blank"}
+
+---
+<div class="scroller">
+<script id="journalist-broadcast-1576506797" async src="https://journali.st/broadcasts/1576506797-widget-10.js"></script>
+</div>
+---
+<p class="center" align="center"><a href="https://t.me/joinchat/CgpznA9h0V7BY1E6JbKJMA" target="_blank">Оставить комментарий через Telegram</a></p>
