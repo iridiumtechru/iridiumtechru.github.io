@@ -397,8 +397,8 @@ copy_libs
     - **--disable-shared** - статические библиотеки, **--disable-static** - динамические.
     - **--disable-asm** - если будет ругаться на ассемблерные вставки. Я собирал без него на vs2015. Если использовать vs2010, то придется потанцевать с yasm(nasm), [c99conv, c99wrap](https://blogs.gnome.org/rbultje/2012/09/27/microsoft-visual-studio-support-in-ffmpeg-and-libav/){:target="_blank"}. 
     - **--arch=x86_64** - если требуется собрать x64 архитектуру. Должен быть MSYS64 и libx264 с x64 архитектурой.
-    - **--prefix** - укажет папку куда выполнится **make install**. Я копировал **.a** файлы в ручную из папок.
-    - **--extra-ldflags** - не работает на win7. ругается на линковку **libx264.a**. Нужно перенести libx264 в корень ffmpeg.
+    - **--prefix** - укажет папку куда выполнится **make install**.
+    - **--extra-ldflags** - не работает на win7. ругается на линковку **libx264.a**. Нужно перенести libx264 в корень ffmpeg, либо в temp папку, которую создает **configure** в корне при выполнении.
 
 7. ```bash
 make
