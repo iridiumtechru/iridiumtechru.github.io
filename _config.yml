@@ -6,7 +6,10 @@ author:
   sitename: "iridiumtechru.github.io"
 baseurl: /
 
-paginate: 3
+source: .
+destination: ./_site
+permalink: /:title
+paginate: 5
 paginate_path: /page/:num/
 
 defaults:
@@ -21,3 +24,6 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-sitemap
+
+# Custom variables
+year : "2018"
